@@ -1,21 +1,8 @@
 {
 	"web-pages": {
-		"ai_studio": "https://aistudio.google.com/app/library",
-		"youtube": "https://www.youtube.com/",
-		"wco": "https://www.wco.tv",
-		"pirate": "https://dorawatch.net",
-		"freeroam": "https://freeroam.netlify.app",
-		"pydocs": "https://docs.python.org/3/"
 	},
 	"batch_saves": {
-		"FreeroamAutomation": "C:\\Users\\hp\\PycharmProjects\\PyAutoGuiScripts\\FreeroamAutomation"
 	},
 	"executables": {
-		"discord": "C:\\Users\\hp\\Desktop\\Games\\Discord.lnk",
-		"steam": "C:\\Program Files (x86)\\Steam\\Steam.exe",
-		"pycharm": "C:\\Program Files\\JetBrains\\PyCharm 2025.2\\bin\\pycharm64.exe",
-		"vscode": "C:\\Users\\hp\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
-		"notes": "C:\\Users\\hp\\AppData\\Local\\Programs\\Obsidian\\Obsidian.exe",
-		"godot": "C:\\Users\\hp\\Desktop\\Programming\\Godot 4.5.1\\Godot_v4.5.1-stable_win64.exe"
 	}
 }
