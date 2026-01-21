@@ -355,20 +355,6 @@ class YoutubeSearch(Command):
         call_ui_hide.emit()
 
 @active_command
-class PirateSearch(Command):
-    def __init__(self, call_sign='pirate', *args, **kwargs):
-        super().__init__(call_sign, *args, **kwargs)
-
-    @property
-    def description(self) -> str:
-        return f"{self.call_sign}: Search Pirate videos."
-
-    def execute(self, string: str):
-        search_url = f"https://dorawatch.net/?s={string.replace(' ', '+')}"
-        webbrowser.open(search_url, 0)
-        call_ui_hide.emit()
-
-@active_command
 class BatchCall(Command):
     def __init__(self, call_sign='batch', *args, **kwargs):
         super().__init__(call_sign, *args, **kwargs)
