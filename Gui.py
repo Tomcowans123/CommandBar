@@ -194,10 +194,8 @@ class App(ctk.CTk):
         self.UNFOCUSED_OPACITY = 0.2
         #endregion
 
-        #region UserChangableVars
         self.call_key = r"ctrl+shift+/"
         self._theme = dark_default
-        #endregion
 
         #region Gui Signals and Lists
         self.commands = Command.all_commands
