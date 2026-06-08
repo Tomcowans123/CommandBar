@@ -8,7 +8,7 @@ from Commands import *
 #endregion
 
 #region Gui Custom Componants
-"""Class for global UI variables Needed for shared Properties used throughut Ui Elements, Like themes"""
+"""Class for global UI variables Needed for shared Properties used throughout Ui Elements, Like themes"""
 class UiGlobal:
     def __init__(self):
         self._theme:Theme = dark_default

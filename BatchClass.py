@@ -34,6 +34,8 @@ class Batch:
             for k, v in settings.items():
                 match = re.match(fr'{k}::\w+', txt)
                 txt.replace(match.group(0), f'{k}::{v}')
+            with open(self.init_path,'w' ) as w:
+                w.write(txt)
 
     def run_batch(self):
         subprocess.run([self.run_path], cwd=self.directory)
