@@ -1,5 +1,7 @@
 import json
 import os
+
+import Config
 from Config import *
 import re
 import subprocess
@@ -38,7 +40,10 @@ class Batch:
                 w.write(txt)
 
     def run_batch(self):
-        subprocess.run([self.run_path], cwd=self.directory)
+        if self.run_path.is_file() and self.directory.is_dir():
+            subprocess.run([self.run_path], cwd=self.directory)
+        else:
+            Config.display_text(f"Batch file: {self.run_path} is not a valid path")
 
     def save_path(self):
         sudo = self.sudo

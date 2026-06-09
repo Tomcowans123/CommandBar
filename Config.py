@@ -3,7 +3,7 @@ import json
 import os
 from abc import ABC, abstractmethod
 from pathlib import Path
-from dataclasses import dataclass
+import importlib.util
 # endregion
 
 
@@ -13,6 +13,7 @@ class UserData:
         self.root:Path = Path(__file__).parent.resolve()
         self.json_path = self.root / 'save_data' / 'user_data.json'
         self.theme_icons_file = self.root /'Icons' / 'theme_icons'
+        self.log_path = self.root / 'save_data' / 'log.json'
 
 user_data = UserData()
 # region Setup Classes
@@ -165,6 +166,16 @@ ready = Signal()
 call_reset_geometry = Signal()
 
 # endregion
+
+"""Handles Plugin functionality"""
+def load_plugins():
+    plugins_dir = root / 'plugins'
+    if not plugins_dir.exists():
+        return
+    for file in plugins_dir.glob('*.py'):
+        spec = importlib.util.spec_from_file_location(file.stem, file)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
 
 # region Instanciating Default Theme
 """FOR INSTRUCTIONS ABOUT ADDING CUSTOM THEMES SEE -> CustomThemeReadMe.txt"""

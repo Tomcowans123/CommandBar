@@ -1,3 +1,4 @@
+import pathlib
 
 #region imports
 import customtkinter as ctk
@@ -224,8 +225,8 @@ class App(ctk.CTk):
         #region Gui Widgets
         self.top_frame = ctk.CTkFrame(self, corner_radius=20, fg_color= 'transparent')
         self.top_frame.pack(side=ctk.TOP, fill='x', expand=False)
-
-        raw_logo = Image.open(r"C:\Users\hp\PycharmProjects\CustomCommandLine\Icons\side_icon_a.png")
+        icon_path = user_data.root / "Icons/side_icon_a.png"
+        raw_logo = Image.open(icon_path)
         self.logo_dimensions = (self.STANDARD_HEIGHT, self.STANDARD_HEIGHT)
 
         self.logo = ctk.CTkImage(raw_logo, size = self.logo_dimensions)
@@ -270,13 +271,14 @@ class App(ctk.CTk):
         self.command_var.text_changed.connect(self._on_text_changed)
         self.autocomplete.auto_pressed.connect(self._sort_geometry)
 
-        close_app.connect(self.destroy)
+        close_app.connect(self._on_application_close)
         call_ui_hide.connect(self._on_call_ui_hide)
         call_ui_screen_frame.connect(self._on_screen_frame_called)
 
         call_reset_geometry.connect(self._sort_geometry)
         Theme.theme_changed.connect(self._on_theme_changed)
         ready.emit()
+        self._on_ready()
         #endregion
 
 
@@ -390,4 +392,19 @@ class App(ctk.CTk):
         self.wm_attributes("-alpha", self.UNFOCUSED_OPACITY)
     #endregion
 
+    """Saves The Log of previous commands when the app closes."""
+    def _on_application_close(self):
+        json_log = json.load(open(user_data.log_path, "r"))
+        #Removes close command
+        self.log.remove("/ops close")
+        json_log["log"] = self.log
+        json.dump(obj=json_log, fp=open(user_data.log_path, "w"), indent="\t")
+
+        self.destroy()
+
+    """Loads the log from previous sessions when the app opens."""
+    def _on_ready(self):
+        if user_data.log_path.exists():
+            json_log = json.load(open(user_data.log_path, "r"))
+            self.log = json_log["log"]
 #endregion

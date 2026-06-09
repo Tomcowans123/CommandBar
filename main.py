@@ -8,6 +8,11 @@ sys.path.append(script_dir)
 os.chdir(script_dir)
 #endregion
 
+#region plugin setup
+from Config import load_plugins
+load_plugins()
+#endregion
+
 from Gui import App
 
 app = App()

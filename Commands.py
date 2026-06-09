@@ -28,7 +28,6 @@ class Operation(Command):
 
     @staticmethod
     def _close_app():
-        print('Closing app')
         close_app.emit()
 
     def execute(self, text):
@@ -40,7 +39,7 @@ class Operation(Command):
     def description(self):
         return f"""
 /{self.call_sign}: Allows for Control Pannal Operations,
-close: Force Closes the Command Line"""
+close: Closes the Command Line"""
 
 @active_command
 class Dice(Command):
@@ -89,13 +88,38 @@ class Note(Command):
     def execute(self, string: str):
         temp = re.compile(r"(?P<title>.*)::(?P<note>.*)")
         result = temp.search(string)
-        if result:
-            # TODO Add note writing function
-            with open(f"{self.note_path}/{result.group('title')}.md", "w") as f:
-                f.write(result.group('note'))
+        if self.note_path:
+            if result:
+                with open(f"{self.note_path}/{result.group('title')}.md", "w") as f:
+                    f.write(result.group('note'))
+                call_ui_hide.emit()
+            else:
+                call_ui_screen_frame.emit('Invalid note format, please try {title}::{note}', '100', 1000)
+        else:
+            display_text("Obsidian Path Not Specified, Please Type /add_path obsidian::{obsidian's file path} to save the path")
+
+@active_command
+class AddPath(Command):
+    def __init__(self, call_sign='add_path', *args, **kwargs):
+        super().__init__(call_sign, *args, **kwargs)
+
+    def execute(self, string: str):
+        temp = re.compile("(?P<name>.*)::(?P<path>.*)")
+        result = temp.search(string)
+        path = result.group('path')
+        name = result.group('name')
+        if Path(path).exists():
+            json_path = json.load(open(user_data.json_path, "r"))
+            json_path["paths"].update({name: path})
+            json.dump(json_path, open(user_data.json_path, "w"), indent="\t")
             call_ui_hide.emit()
         else:
-            call_ui_screen_frame.emit('Invalid note format, please try {title}::{note}', '100', 1000)
+            display_text("The Path Does Not Exist")
+
+    @property
+    def description(self):
+        return f"""/{self.call_sign}: saves paths to programs that can be used in other commands,
+        I.E. /note requires a valid path to an obsidian vault to use correctly."""
 
 @active_command
 class EvalCommand(Command):
