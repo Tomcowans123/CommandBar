@@ -42,7 +42,11 @@ Out of the box the python command bar has several useful commands and features b
 
 <img width="1718" height="428" alt="HelpSpecificCmd" src="https://github.com/user-attachments/assets/49244bd3-2b82-4c38-957c-aadee4f4573a" />
 
+- ### **Roll:**
+	- **Callsign:** /roll
+	- allows users to input standard dice values and get a random result based on the dice rolled I.E _1d10+2_ , _2d6_, _10d12-10_ and returns displays the value rolled on the inputted dice.
 - ### **Other Features:**
 	- The command bar has an autocomplete feature allowing the user to begin typing a callsign and the autocomplete will show up with all the callsigns matching the text in the command bar.
+	- The command bar allows for custom plugins added into a dedicated plugon directory that will be automatically loaded when the application starts up allowing for users to create and share custom commands for the application.
 	- The command bar also allows users to repeat previous commands by using the up and down arrows on the key-board.
 	- The command bar is able to be shown or hidden by using the \<ctrl>+\<shift>+\</> keys.
