@@ -171,6 +171,7 @@ call_reset_geometry = Signal()
 def load_plugins():
     plugins_dir = root / 'plugins'
     if not plugins_dir.exists():
+        os.mkdir(plugins_dir)
         return
     for file in plugins_dir.glob('*.py'):
         spec = importlib.util.spec_from_file_location(file.stem, file)
